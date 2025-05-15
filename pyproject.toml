@@ -1,0 +1,66 @@
+[project]
+name = "boostspace-mcp"
+version = "0.1.1"
+description = "A Model Context Protocol (MCP) server for Boost.space"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+maintainers = [
+  { name = "Boost.space", email = "team@boost.space" },
+]
+dependencies = [
+  "mcp[cli]>=1.6.0",
+  "requests>=2.28.0",
+]
+
+[project.urls]
+"Homepage"    = "https://github.com/boostspace/boostspace-mcp-server"
+"Bug Tracker" = "https://github.com/boostspace/boostspace-mcp-server/issues"
+
+[project.optional-dependencies]
+dev   = ["pytest", "ruff", "setuptools", "liccheck"]
+tests = ["pytest"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+
+[tool.ruff]
+line-length    = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.liccheck]
+authorized_licenses = [
+  "bsd",
+  "new bsd",
+  "bsd license",
+  "new bsd license",
+  "simplified bsd",
+  "apache",
+  "apache 2.0",
+  "apache software license",
+  "isc license",
+  "isc license (iscl)",
+  "mit",
+  "mit license",
+  "python software foundation license",
+]
+unauthorized_licenses = [
+  "gpl v3",
+  "gnu lgpl",
+  "lgpl with exceptions or zpl",
+]
+
+[build-system]
+requires    = ["setuptools>=68", "wheel", "build"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where  = ["src"]
+include = ["boostspace_mcp*"]
+

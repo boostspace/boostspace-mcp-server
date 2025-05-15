@@ -1,0 +1,76 @@
+name: CI & CD
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main]
+
+env:
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  lint-and-tests:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Create venv & install dev deps
+        run: |
+          uv venv .venv
+          echo "$PWD/.venv/bin" >> $GITHUB_PATH
+          uv pip install .[dev]
+          uv pip install pip
+
+      - name: Generate requirements.txt
+        run: uv run python utils/generate_requirements.py
+
+      - name: Licence compliance
+        continue-on-error: true
+        run: uv run liccheck -r requirements.txt -s licenses_policy.py
+
+      - name: Ruff lint
+        run: uv run ruff check .
+
+      - name: Set test env vars
+        run: |
+          echo "BOOSTSPACE_API_BASE=https://example.com" >> $GITHUB_ENV
+          echo "BOOSTSPACE_TOKEN=dummy"           >> $GITHUB_ENV
+
+      - name: Run unit tests
+        run: uv run pytest -q
+
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Create venv & install dev deps
+        run: |
+          uv venv .venv
+          echo "$PWD/.venv/bin" >> $GITHUB_PATH
+          uv pip install .[dev]
+          uv pip install pip
+
+      - name: Build dists with uv
+        run: uv build --no-sources
+
+      - name: Publish to PyPI with uv
+        run: uv publish --publish-url https://test.pypi.org/legacy/ --trusted-publishing always
