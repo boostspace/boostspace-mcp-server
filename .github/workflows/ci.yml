@@ -60,12 +60,8 @@ jobs:
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v6
 
-      - name: Create venv & install dev deps
-        run: |
-          uv venv .venv
-          echo "$PWD/.venv/bin" >> $GITHUB_PATH
-          uv pip install .[dev]
-          uv pip install pip
+      - name: Install the project
+        run: uv sync --all-groups
 
       - name: Build dists with uv
         run: uv build --no-sources
