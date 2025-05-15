@@ -67,13 +67,6 @@ unauthorized_licenses = [
   "lgpl with exceptions or zpl",
 ]
 
-[build-system]
-requires    = ["setuptools>=68", "wheel", "build"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools]
-package-dir = { "" = "src" }
-
 [tool.setuptools.packages.find]
 where  = ["src"]
 include = ["boostspace_mcp*"]
