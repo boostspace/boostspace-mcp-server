@@ -21,6 +21,12 @@ dependencies = [
 "Homepage"    = "https://boost.space"
 "Bug Tracker" = "https://github.com/boostspace/boostspace-mcp-server/issues"
 
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.dynamic]
+version = { attr = "src.boostspace_mcp.__version__" }
+
 [project.optional-dependencies]
 dev   = ["pytest", "ruff", "setuptools", "liccheck"]
 tests = ["pytest"]
