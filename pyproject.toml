@@ -25,7 +25,7 @@ dependencies = [
 package-dir = { "" = "src" }
 
 [tool.setuptools.dynamic]
-version = { attr = "src.boostspace_mcp.__version__" }
+version = { attr = "boostspace_mcp.__version__" }
 
 [project.optional-dependencies]
 dev   = ["pytest", "ruff", "setuptools", "liccheck"]
