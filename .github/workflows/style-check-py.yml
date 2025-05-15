@@ -23,8 +23,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Python dependencies
-        run: uv sync --no-python-downloads
+      - name: Install project, validate lockfile
+        run: uv sync --locked --all-packages --all-extras --dev
 
-      - name: Run Ruff Check
-        run: uv run --only-dev ruff check --output-format=github .
+      - name: Ruff format
+        run: uv run ruff format --check
