@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "boostspace-mcp-server"
-dynamic = ["version"]
+version = "0.1.2"
 description = "A Model Context Protocol (MCP) server for Boost.space"
 readme = "README.md"
 requires-python = ">=3.11"
