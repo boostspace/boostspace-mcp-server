@@ -71,3 +71,5 @@ unauthorized_licenses = [
 where  = ["src"]
 include = ["boostspace_mcp*"]
 
+[tool.mypy]
+strict = true
