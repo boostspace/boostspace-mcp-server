@@ -24,9 +24,6 @@ dependencies = [
 [tool.setuptools]
 package-dir = { "" = "src" }
 
-[tool.setuptools.dynamic]
-version = { attr = "boostspace_mcp.__version__" }
-
 [tool.uv]
 dev-dependencies = [
   "pytest>=8.3.5",
