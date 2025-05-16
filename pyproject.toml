@@ -46,10 +46,6 @@ select = [
     "UP", # pyupgrade
 ]
 
-[tool.isort]
-line_length = 120
-multi_line_output = 0
-
 [tool.liccheck]
 authorized_licenses = [
   "bsd",
