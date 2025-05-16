@@ -21,8 +21,10 @@ dependencies = [
 "Homepage"    = "https://boost.space"
 "Bug Tracker" = "https://github.com/boostspace/boostspace-mcp-server/issues"
 
+
 [tool.setuptools]
 package-dir = { "" = "src" }
+
 
 [tool.uv]
 dev-dependencies = [
@@ -36,8 +38,10 @@ dev-dependencies = [
   "mypy>=1.15.0",
 ]
 
+
 [tool.pytest.ini_options]
 addopts = "-q"
+
 
 [tool.ruff]
 line-length = 100
@@ -51,6 +55,7 @@ select = [
     "I",  # isort
     "UP", # pyupgrade
 ]
+
 
 [tool.liccheck]
 authorized_licenses = [
@@ -74,9 +79,11 @@ unauthorized_licenses = [
   "lgpl with exceptions or zpl",
 ]
 
+
 [tool.setuptools.packages.find]
 where  = ["src"]
 include = ["boostspace_mcp*"]
+
 
 [tool.mypy]
 strict = true
