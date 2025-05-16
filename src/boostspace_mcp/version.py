@@ -9,6 +9,7 @@ def get_version() -> str:
     except importlib_metadata.PackageNotFoundError:
         return "0.0.0+dev"
 
+
 SERVER_VERSION: str = get_version()
 
 __all__ = ["get_version", "SERVER_VERSION"]

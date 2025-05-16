@@ -24,11 +24,7 @@ class ToolRegistry:
 
     @staticmethod
     def _generate_tool_id(method: str, path: str) -> str:
-        cleaned = (
-            path.strip("/")
-            .replace("/", "_")
-            .translate(str.maketrans("", "", "{}"))
-        )
+        cleaned = path.strip("/").replace("/", "_").translate(str.maketrans("", "", "{}"))
         return f"{method.lower()}_{cleaned}"
 
     def _sanitize_name(self, raw: str) -> str:

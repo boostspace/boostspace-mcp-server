@@ -4,7 +4,6 @@ from .config import API_BASE, TOKEN
 
 
 class BoostSpaceClient:
-
     def __init__(self, api_base: str = API_BASE, token: str = TOKEN):
         self.base = api_base.rstrip("/")
         self.headers = {"Authorization": f"Bearer {token}"}

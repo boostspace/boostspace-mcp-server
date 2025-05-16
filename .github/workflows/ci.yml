@@ -46,25 +46,3 @@ jobs:
 
       - name: Run unit tests
         run: uv run pytest -q
-
-  publish:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@v6
-
-      - name: Install the project
-        run: uv sync --all-groups
-
-      - name: Build dists with uv
-        run: uv build --no-sources
-
-      - name: Publish to PyPI with uv
-        run: uv publish

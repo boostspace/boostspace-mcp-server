@@ -1,10 +1,14 @@
+[build-system]
+requires = ["setuptools>=70.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "boostspace-mcp-server"
-version = "0.1.1"
+version = "0.1.2"
 description = "A Model Context Protocol (MCP) server for Boost.space"
 readme = "README.md"
 requires-python = ">=3.11"
-license = { file = "LICENSE" }
+license = { text = "MIT" }
 maintainers = [
   { name = "Boost.space", email = "team@boost.space" },
 ]
@@ -14,22 +18,44 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage"    = "https://github.com/boostspace/boostspace-mcp-server"
+"Homepage"    = "https://boost.space"
 "Bug Tracker" = "https://github.com/boostspace/boostspace-mcp-server/issues"
 
-[project.optional-dependencies]
-dev   = ["pytest", "ruff", "setuptools", "liccheck"]
-tests = ["pytest"]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+
+[tool.uv]
+dev-dependencies = [
+  "pytest>=8.3.5",
+  "coverage>=7.5.3",
+  "pytest-coverage>=0.0",
+  "pytest-mock>=3.14.0",
+  "ruff>=0.11.10",
+  "pyright>=1.1.400",
+  "licensecheck>=2025.1.0",
+  "mypy>=1.15.0",
+]
+
 
 [tool.pytest.ini_options]
 addopts = "-q"
 
+
 [tool.ruff]
-line-length    = 100
+line-length = 100
 target-version = "py311"
+exclude = [".github"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP"]
+select = [
+    "E",  # pycodestyle errors
+    "F",  # pyflakes
+    "I",  # isort
+    "UP", # pyupgrade
+]
+
 
 [tool.liccheck]
 authorized_licenses = [
@@ -53,14 +79,17 @@ unauthorized_licenses = [
   "lgpl with exceptions or zpl",
 ]
 
-[build-system]
-requires    = ["setuptools>=68", "wheel", "build"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools]
-package-dir = { "" = "src" }
 
 [tool.setuptools.packages.find]
 where  = ["src"]
 include = ["boostspace_mcp*"]
 
+
+[tool.mypy]
+strict = true
+
+
+[tool.licensecheck]
+only_licenses = [
+  "APACHE SOFTWARE LICENSE"
+]
