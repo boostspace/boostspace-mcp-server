@@ -87,3 +87,9 @@ include = ["boostspace_mcp*"]
 
 [tool.mypy]
 strict = true
+
+
+[tool.licensecheck]
+only_licenses = [
+  "APACHE SOFTWARE LICENSE"
+]
