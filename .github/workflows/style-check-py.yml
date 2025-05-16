@@ -1,30 +1,37 @@
 name: Ruff Style Check
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
-    types: [ opened, synchronize, reopened, auto_merge_enabled ]
-    paths:
-      - "**/*.py"
+    branches: [ "main" ]
 
 jobs:
-  lint:
+  ruff:
     name: Ruff Style Check
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        python-version:
-          - "3.13"
-    steps:
-      - name: Check out the code at a specific ref
-        uses: actions/checkout@v4
+        python-version: [ "3.11", "3.12" ]
 
-      - name: "Setup Environment"
-        uses: ./.github/actions/setup-uv
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
 
       - name: Install project, validate lockfile
-        run: uv sync --locked --all-packages --all-extras --dev
+        run: uv sync --locked --all-packages --all-extras
 
-      - name: Ruff format
-        run: uv run ruff format --check
+      - name: Ruff
+        run: uv run ruff check --output-format=github .
+
+      - name: Check format
+        run: uv run ruff format --check .
